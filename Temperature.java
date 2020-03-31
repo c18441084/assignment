@@ -12,6 +12,7 @@ public class Temperature {
 	int hot = 0;
 	int normal = 0;
 	int cool = 0;
+	int length = 0;
 	
 	public Temperature(String fileName)
 	{
@@ -23,15 +24,22 @@ public class Temperature {
 		actualFile = new File(fileName);
 	}
 	
-	String readFile()
-	{
-		String token="";
+	String[][] readFile()
+	{		
+		int i = 0;
+		int j = 0;
+		String[][] temp = new String[100][1];
 		
 		try
 		{
 			myScanner = new Scanner(actualFile);
-			System.out.println("File found");
 			
+			while(myScanner.hasNextLine())
+			{
+				temp[i][j] = myScanner.nextLine();
+				System.out.println(temp[i][j]);
+				i++;
+			}
 		}
 		catch(Exception e)
 		{
@@ -39,7 +47,7 @@ public class Temperature {
 			e.printStackTrace();
 		}
 		
-		return token;
+		return temp;
 	}
 	
 	void closeFile()
