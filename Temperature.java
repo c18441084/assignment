@@ -1,3 +1,4 @@
+
 package Assignment.java;
 
 import java.io.File;
@@ -6,29 +7,55 @@ import java.util.Scanner;
 public class Temperature {
 	
 	//attributes
-	String fileName;
+	private String fileName;
 	File actualFile;
 	Scanner myScanner;
+	private String answer;
+	float ans;
+	int times;
 	int fileLength = 0;
 	//amount yes and no
 	int yes = 0;
 	int no = 0;
 	
 	//Constructor
-	public Temperature(String fileName)
+	public Temperature(String fileName, String answer)
+	{
+		this.setFileName(fileName);
+		this.setAnswer(answer);
+	}
+	
+	public String getFileName() 
+	{
+		return fileName;
+	}
+
+	public void setFileName(String fileName) 
 	{
 		this.fileName = fileName;
 	}
 	
+	public String getAnswer() 
+	{
+		return answer;
+	}
+
+	public void setAnswer(String answer) 
+	{
+		this.answer = answer;
+	}
+
 	//Opening the file 
 	public void openFile()
 	{
-		actualFile = new File(fileName);
+		actualFile = new File(getFileName());
 	}
 	
 	//Starting to read the files
-	String readFile()
+	public float readFile()
 	{		
+		yes = 0;
+		no = 0;
 		//amount of temperatures
 		int hot = 0;
 		int normal = 0;
@@ -138,23 +165,86 @@ public class Temperature {
 			}
 			
 			//Probability
+			if(answer.contains("hot"))
+			{
+				hotNo = (hot - hotyes)/no;
+				hotyes = hotyes/yes;
+				if (times == 0)
+				{
+					ans = hotyes;
+				}
+				if(times == 1)
+				{
+					ans = hotNo;
+				}
+				times++;
+				if(times == 2)
+				{
+					times = 0;
+				}
+			}
 			
-			hotNo = (hot - hotyes)/no;
-			hotyes = hotyes/yes;
+			if(answer.contains("normal"))
+			{
+				normalNo = (normal - normalyes)/no;
+				normalyes = normalyes/yes;
+				System.out.println(normalyes);
+				//System.out.println(normalNo);
+				if (times == 0)
+				{
+					ans = normalyes;
+				}
+				if(times == 1)
+				{
+					ans = normalNo;
+				}
+				times++;
+				if(times == 2)
+				{
+					times = 0;
+				}
+			}
+			
+			if(answer.contains("cool"))
+			{
+				coolNo = (cool - coolyes)/no;
+				coolyes = coolyes/yes;
+				
+				if (times == 0)
+				{
+					ans = coolyes;
+				}
+				if(times == 1)
+				{
+					ans = coolNo;
+				}
+				times++;
+				if(times == 2)
+				{
+					times = 0;
+				}
+			}
+			
+			if(answer.contains("cold"))
+			{
+				coldNo = (cold - coldyes)/no;
+				coldyes = coldyes/yes;
+				
+				if (times == 0)
+				{
+					ans = coldyes;
+				}
+				if(times == 1)
+				{
+					ans = coldNo;
+				}
+				times++;
+				if(times == 2)
+				{
+					times = 0;
+				}
+			}
 
-			normalNo = (normal - normalyes)/no;
-			normalyes = normalyes/yes;
-			
-			coolNo = (cool - coolyes)/no;
-			coolyes = coolyes/yes;
-			
-			coldNo = (cold - coldyes)/no;
-			coldyes = coldyes/yes;
-			
-			//System.out.println("Hot\nP(Yes): " + hotyes + "\nP(No): " + hotNo);
-			//System.out.println("\n\nNormal\nP(Yes): " + normalyes + "\nP(No): " + normalNo);
-			//System.out.println("\n\nCool\nP(Yes): " + coolyes + "\nP(No): " + coolNo);
-			//System.out.println("\n\nCold\nP(Yes): " + coldyes + "\nP(No): " + coldNo);
 		}
 		
 		//Catch if there is a error in finding the file
@@ -164,7 +254,7 @@ public class Temperature {
 			e.printStackTrace();
 		}
 		
-		return fileName;
+		return ans;
 	}
 	
 	//Closing the File

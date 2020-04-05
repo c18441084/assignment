@@ -62,15 +62,34 @@ public class GUI extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent myEvent)
 	{
 		String temper = text1.getText();
+		String[] answerArray = new String[4];
+		int i = 0;
 		if(myEvent.getSource() == button1)
 		{			
-			System.out.println(temper);
-			if(temper.contains("hot") || temper.contains("normal") || temper.contains("cool") || temper.contains("cold"))
+			if(temper.contains("hot"))
 			{
-				Temperature.readFile(temper);
+				answerArray[i] = temper;
+				i++;
 			}
 			
+			if(temper.contains("normal"))
+			{
+				answerArray[i] = temper;
+				i++;
+			}
 			
+			if(temper.contains("cool"))
+			{
+				answerArray[i] = temper;
+				i++;
+			}
+			
+			if(temper.contains("cold"))
+			{
+				answerArray[i] = temper;
+				i++;
+			}
+			Controllor.main(answerArray);
 		}
 	}
 }
