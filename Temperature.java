@@ -1,4 +1,24 @@
-
+/*********************************************************************************************
+ * 
+ * Author: Niall McNamara
+ * Student Number: C18441084
+ * Date:
+ * Project: Machine Learning Assignment
+ * Description: The following program is used to test users to calculate if they are likely to have 
+ * 				Coronavirus or not. Classes such as; Temperature.java, Aches.java, Cough.java, SoreThroat.java 
+ * 				and Visited.java, each read in a file called "CoronaVirus.csv" and disect it down to retrieve 
+ * 				the information needed from each column. I used the algorithm Naives Bayes to calculate the 
+ * 				whether the user had CoronaVirus judging by their answers. The user will enter their answers 
+ * 				using the GUI I constructed in the class: GUI.java. In this class I took the user's answers
+ * 				and transferred them into the Controllor.java class. The Controllor.java class sends the file 
+ * 				to each class so it can be broken down. The class then sends the information back to to the 
+ * 				Controllor.java class so it can be calculated and to find the answer for the user. The answer
+ * 				is sent back to the GUI.java class where it is displayed to the user whether they have the 	
+ * 				virus or not.
+ *Refernces:(https://www.youtube.com/watch?v=CPqOCI0ahss&t=321s) = Video explaining and showing Naives Bayes,
+ *			 Used previous labs to help with file processing and GUI set up, 
+ * 
+ */
 package Assignment.java;
 
 import java.io.File;
@@ -7,12 +27,12 @@ import java.util.Scanner;
 public class Temperature {
 	
 	//attributes
-	private String fileName;
+	public String fileName;
 	File actualFile;
 	Scanner myScanner;
-	private String answer;
+	public String answer;
 	float ans;
-	int times;
+	int times;//Used to count the amount of times the readFile method has been contacted
 	int fileLength = 0;
 	//amount yes and no
 	int yes = 0;
@@ -25,21 +45,25 @@ public class Temperature {
 		this.setAnswer(answer);
 	}
 	
+	//Getter for FileName
 	public String getFileName() 
 	{
 		return fileName;
 	}
-
+	
+	//Setter for FileName
 	public void setFileName(String fileName) 
 	{
 		this.fileName = fileName;
 	}
 	
+	//Getter for answer
 	public String getAnswer() 
 	{
 		return answer;
 	}
-
+	
+	//Setter for answer
 	public void setAnswer(String answer) 
 	{
 		this.answer = answer;
@@ -54,8 +78,10 @@ public class Temperature {
 	//Starting to read the files
 	public float readFile()
 	{		
+		//Variables used for yes's and no's in CoronaVirus column
 		yes = 0;
 		no = 0;
+		
 		//amount of temperatures
 		int hot = 0;
 		int normal = 0;
@@ -99,21 +125,25 @@ public class Temperature {
 			
 			for (i=2; i < fileLength; i++)
 			{
+				//Counting the amount of "hot" in Temperature column 
 				if(temp[i].contains("hot"))
 				{
 					hot++;
 				}
 				
+				//Counting the amount of "normal" in Temperature column 
 				if(temp[i].contains("normal"))
 				{
 					normal++;
 				}
 				
+				//Counting the amount of "cool" in Temperature column 
 				if(temp[i].contains("cool"))
 				{
 					cool++;
 				}
 				
+				//Counting the amount of "cold" in Temperature column 
 				if(temp[i].contains("cold"))
 				{
 					cold++;
@@ -164,7 +194,7 @@ public class Temperature {
 				}
 			}
 			
-			//Probability
+			/* Probability */
 			if(answer.contains("hot"))
 			{
 				hotNo = (hot - hotyes)/no;
@@ -177,8 +207,12 @@ public class Temperature {
 				{
 					ans = hotNo;
 				}
-				times++;
 				if(times == 2)
+				{
+					ans = hot;
+				}
+				times++;
+				if(times > 2)
 				{
 					times = 0;
 				}
@@ -188,8 +222,6 @@ public class Temperature {
 			{
 				normalNo = (normal - normalyes)/no;
 				normalyes = normalyes/yes;
-				System.out.println(normalyes);
-				//System.out.println(normalNo);
 				if (times == 0)
 				{
 					ans = normalyes;
@@ -198,8 +230,12 @@ public class Temperature {
 				{
 					ans = normalNo;
 				}
-				times++;
 				if(times == 2)
+				{
+					ans = normal;
+				}
+				times++;
+				if(times > 2)
 				{
 					times = 0;
 				}
@@ -212,14 +248,18 @@ public class Temperature {
 				
 				if (times == 0)
 				{
-					ans = coolyes;
+					ans = yes;
 				}
 				if(times == 1)
 				{
 					ans = coolNo;
 				}
-				times++;
 				if(times == 2)
+				{
+					ans = cool;
+				}
+				times++;
+				if(times > 2)
 				{
 					times = 0;
 				}
@@ -238,8 +278,12 @@ public class Temperature {
 				{
 					ans = coldNo;
 				}
-				times++;
 				if(times == 2)
+				{
+					ans = cold;
+				}
+				times++;
+				if(times > 2)
 				{
 					times = 0;
 				}
@@ -254,6 +298,7 @@ public class Temperature {
 			e.printStackTrace();
 		}
 		
+		//Returning calculations to Controllor.java
 		return ans;
 	}
 	
