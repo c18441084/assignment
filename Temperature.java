@@ -154,7 +154,7 @@ public class Temperature {
 			//Loop to count the amount of temperatures with CoronaVirus
 			for(i=2; i < fileLength; i++)
 			{
-				//Array to split the old array
+				//Splitting the old array by comas
 				String split[] = temp[i].split(",");
 				
 				//count the amount of "yes" in CoronaVirus column
@@ -211,8 +211,12 @@ public class Temperature {
 				{
 					ans = hot;
 				}
+				if(times == 3)
+				{
+					ans = fileLength;
+				}
 				times++;
-				if(times > 2)
+				if(times > 3)
 				{
 					times = 0;
 				}
@@ -234,8 +238,12 @@ public class Temperature {
 				{
 					ans = normal;
 				}
+				if(times == 3)
+				{
+					ans = fileLength;
+				}
 				times++;
-				if(times > 2)
+				if(times > 3)
 				{
 					times = 0;
 				}
@@ -258,8 +266,12 @@ public class Temperature {
 				{
 					ans = cool;
 				}
+				if(times == 3)
+				{
+					ans = fileLength;
+				}
 				times++;
-				if(times > 2)
+				if(times > 3)
 				{
 					times = 0;
 				}
@@ -282,8 +294,12 @@ public class Temperature {
 				{
 					ans = cold;
 				}
+				if(times == 3)
+				{
+					ans = fileLength;
+				}
 				times++;
-				if(times > 2)
+				if(times > 3)
 				{
 					times = 0;
 				}

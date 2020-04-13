@@ -66,7 +66,7 @@ public class Cough extends Aches
 			//Loop for getting the values from the file
 			for(i = 2; i < fileLength; i++)
 			{
-				//Array to split the old array
+				//Splitting the old array by comas
 				String split[] = cough[i].split(",");
 				
 				//Amount of yes's in CoronaVirus column

@@ -30,11 +30,11 @@ public class GUI extends JFrame implements ActionListener
 		
 		//Labels & texts
 		label1 = new JLabel("CoronaVirus Test");
-		label2 = new JLabel("Enter Temperature");
-		label3 = new JLabel("Have you had aches?");
-		label4 = new JLabel("Have you been coughing?");
-		label5 = new JLabel("Do you have a sore throat?");
-		label6 = new JLabel("Have you recently visited a country with COVID 19?");
+		label2 = new JLabel("Enter Temperature: ");
+		label3 = new JLabel("Have you had aches?: ");
+		label4 = new JLabel("Have you been coughing?: ");
+		label5 = new JLabel("Do you have a sore throat?: ");
+		label6 = new JLabel("Have you recently visited a country with COVID 19?: ");
 		text1 = new JTextField("(hot/normal/cool/cold)");
 		text2 = new JTextField("(yes/no)");
 		text3 = new JTextField("(yes/no)");
@@ -173,10 +173,10 @@ public class GUI extends JFrame implements ActionListener
 					answerArray[i] = visited;
 					i++;
 				}
+				
+				//Sending array of answers to the Controllor.java class
+				Controllor.main(answerArray);
 			}
-			
-			//Sending array of answers to the Controllor.java class
-			Controllor.main(answerArray);
 		}
 	}
 	
