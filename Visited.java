@@ -6,9 +6,9 @@ import java.util.Scanner;
 public class Visited extends Temperature
 {
 	//Attributes
-	File actualFile;
-	Scanner myScanner;
-	float ans;
+	File actualFile;//Used to store the file
+	Scanner myScanner;//Opens the file
+	float ans;//Variable used to return the calculations/odds of user's answer
 	int times;//Used to count the amount of times the readFile method has been contacted
 	
 	//Constuctor
@@ -106,6 +106,7 @@ public class Visited extends Temperature
 			}
 			
 			//Probability
+			//if the answer that the user entered is equal to yes
 			if(answer.contains("yes"))
 			{
 				j = Vyes + Vyesno;
@@ -121,11 +122,11 @@ public class Visited extends Temperature
 				}
 				if(times == 2)
 				{
-					ans = yes;
+					ans = yes;//getting the percentage the of yes's in the CoronaVirus column
 				}
 				if(times == 3)
 				{
-					ans = no;
+					ans = no;//getting the percentage the of no's in the CoronaVirus column
 				}
 				if(times == 4)
 				{
@@ -139,7 +140,7 @@ public class Visited extends Temperature
 					times = 0;
 				}
 			}
-			
+			//if the answer that the user entered is equal to no
 			if(answer.contains("no"))
 			{
 				j = Vnoyes + Vno;
@@ -155,11 +156,11 @@ public class Visited extends Temperature
 				}
 				if(times == 2)
 				{
-					ans = yes/fileLength;
+					ans = yes/fileLength;//getting the percentage the of yes's in the CoronaVirus column
 				}
 				if(times == 3)
 				{
-					ans = no/fileLength;
+					ans = no/fileLength;//getting the percentage the of no's in the CoronaVirus column
 				}
 				if(times == 4)
 				{

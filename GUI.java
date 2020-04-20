@@ -16,11 +16,12 @@ public class GUI extends JFrame implements ActionListener
 
 	//Attributes 
 	JLabel label1, label2, label3, label4, label5, label6;
-	JButton button1;
+	JButton button1, button2;
 	JPanel centerPanel, southPanel, northPanel;
 	JTextField text1, text2, text3, text4, text5;
+	int times = 0;
 	
-	public GUI(String myTitle)
+	public GUI(String myTitle, int k)
 	{
 		super(myTitle);
 		setSize(600, 600);
@@ -43,7 +44,10 @@ public class GUI extends JFrame implements ActionListener
 		
 		//Buttons
 		button1 = new JButton("Test");
+		button2 = new JButton("Reset");
 		button1.addActionListener(this);
+		button2.addActionListener(this);
+		
 		
 		//set up Panels
 		centerPanel = new JPanel();
@@ -69,129 +73,159 @@ public class GUI extends JFrame implements ActionListener
 		
 		//South Panel
 		southPanel.add(button1);
+		southPanel.add(button2);
 		add(southPanel, BorderLayout.SOUTH);
 		
-		setVisible(true);
+		button2.setEnabled(false);
+		if(k == 0)
+		{
+			setVisible(true);
+		}
+		else
+		{
+			setVisible(false);
+		}
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent myEvent)
 	{
 		String temper = text1.getText();
+		temper.toLowerCase();
 		String ache = text2.getText();
+		ache.toLowerCase();
 		String cough = text3.getText(); 
+		cough.toLowerCase();
 		String sorethroat = text4.getText();
+		sorethroat.toLowerCase();
 		String visited = text5.getText();
-		String[] answerArray = new String[5];
+		visited.toLowerCase();
+		String[] answerArray = new String[6];
 		int i = 0;
 		if(myEvent.getSource() == button1)
 		{		
 			//Temperature answer
-			if(temper.contains("hot") || temper.contains("Hot"))
+			if(i == 0)
 			{
-				answerArray[i] = temper;
-				i++;
+				if(temper.contains("hot") || temper.contains("normal") || temper.contains("cool") || temper.contains("cold"))
+				{
+					answerArray[i] = temper;
+					i++;
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(this, "Please enter correct answers only");
+					for(i = 0; i < 5; i++)
+					{
+						answerArray[i] = "";
+					}
+				}
 			}
 			
-			if(temper.contains("normal") || temper.contains("Normal"))
-			{
-				answerArray[i] = temper;
-				i++;
-			}
-			
-			if(temper.contains("cool") || temper.contains("Cool"))
-			{
-				answerArray[i] = temper;
-				i++;
-			}
-			
-			if(temper.contains("cold") || temper.contains("Cold"))
-			{
-				answerArray[i] = temper;
-				i++;
-			}
 			
 			//Ache answer
 			if(i == 1)
 			{
-				if(ache.contains("yes") || ache.contains("Yes") || ache.contains("y"))
+				if(ache.contains("yes") || ache.contains("no"))
 				{
 					answerArray[i] = ache;
 					i++;
 				}
-			
-				if(ache.contains("no") || ache.contains("No") || ache.contains("n"))
+				else
 				{
-					answerArray[i] = ache;
-					i++;
+					JOptionPane.showMessageDialog(this, "Please enter correct answers only");
+					for(i = 0; i < 5; i++)
+					{
+						answerArray[i] = "";
+					}
 				}
 			}
 			
 			//Cough answer
 			if(i == 2)
 			{
-				if(cough.contains("yes") || cough.contains("Yes") || cough.contains("y"))
+				if(cough.contains("yes") || cough.contains("no"))
 				{
 					answerArray[i] = cough;
 					i++;
 				}
-				
-				if(cough.contains("no") || cough.contains("No") || cough.contains("n"))
+				else
 				{
-					answerArray[i] = cough;
-					i++;
+					JOptionPane.showMessageDialog(this, "Please enter correct answers only");
+					for(i = 0; i < 5; i++)
+					{
+						answerArray[i] = "";
+					}
 				}
 			}
 			
 			//Sore Throat answer
 			if(i == 3)
 			{
-				if(sorethroat.contains("yes") || sorethroat.contains("Yes") || sorethroat.contains("y"))
+				if(sorethroat.contains("yes") || sorethroat.contains("no"))
 				{
 					answerArray[i] = sorethroat;
 					i++;
 				}
-				
-				if(sorethroat.contains("no") || sorethroat.contains("No") || sorethroat.contains("n"))
+				else
 				{
-					answerArray[i] = sorethroat;
-					i++;
+					JOptionPane.showMessageDialog(this, "Please enter correct answers only");
+					for(i = 0; i < 5; i++)
+					{
+						answerArray[i] = "";
+					}
 				}
 			}
 			
 			//Recently Visited
 			if(i == 4)
 			{
-				if(visited.contains("yes") || visited.contains("Yes") || visited.contains("y"))
+				if(visited.contains("yes") || visited.contains("no"))
 				{
 					answerArray[i] = visited;
 					i++;
 				}
-				
-				if(visited.contains("no") || visited.contains("No") || visited.contains("n"))
+				else
 				{
-					answerArray[i] = visited;
-					i++;
+					JOptionPane.showMessageDialog(this, "Please enter one of the correct answers");
+					for(i = 0; i < 5; i++)
+					{
+						answerArray[i] = "";
+					}
 				}
-				
-				//Sending array of answers to the Controllor.java class
-				Controllor.main(answerArray);
 			}
+			//Sending array of users answers to the Controllor.java class
+			Controllor.main(answerArray);
+			button1.setEnabled(false);
+			button2.setEnabled(true);
+		}
+		
+		if(myEvent.getSource() == button2)
+		{
+			for(i = 0; i < 5; i++)
+			{
+				answerArray[i] = "";
+			}
+			JOptionPane.showMessageDialog(this, "The GUI has been reset. Enter new options.");
+			button1.setEnabled(true);
+			button2.setEnabled(false);
 		}
 	}
 	
 	//Method to tell the user whether they have the virus or not
-	public void Conclusion(String Answer)
+	public void Conclusion(String Answer, double accuracy)
 	{
 		if(Answer.contains("yes"))
 		{
-			JOptionPane.showMessageDialog(this, "CoronaVirus test result: Positive");
+			JOptionPane.showMessageDialog(this, "CoronaVirus test result: Positive \nMachine Accuracy: " + accuracy + "%");
 		}
 		if(Answer.contains("no"))
 		{
-			JOptionPane.showMessageDialog(this, "CoronaVirus test result: Negative");
+			JOptionPane.showMessageDialog(this, "CoronaVirus test result: Negative \nMachine Accuracy: " + accuracy + "%");
 		}
+		
 	}
+
 }
 
 

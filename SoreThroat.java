@@ -6,9 +6,9 @@ import java.util.Scanner;
 public class SoreThroat extends Temperature 
 {
 	//Attributes
-	File actualFile;
-	Scanner myScanner;
-	float ans;
+	File actualFile;//Used to store the file
+	Scanner myScanner;//Opens the file
+	float ans;//Variable used to return the calculations/odds of user's answer
 	int times;//Used to count the amount of times the readFile method has been contacted
 	
 	//Constuctor
@@ -106,6 +106,7 @@ public class SoreThroat extends Temperature
 			}
 			
 			//Probability
+			//if the answer that the user entered is equal to yes
 			if(answer.contains("yes"))
 			{
 				j = STyes + STyesno;
@@ -131,7 +132,7 @@ public class SoreThroat extends Temperature
 					times = 0;
 				}
 			}
-			
+			//if the answer that the user entered is equal to no
 			if(answer.contains("no"))
 			{
 				j = STnoyes + STno;
@@ -175,3 +176,4 @@ public class SoreThroat extends Temperature
 		myScanner.close();
 	}
 }
+

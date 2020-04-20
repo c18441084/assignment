@@ -7,9 +7,9 @@ public class Cough extends Aches
 {
 
 	//attributes
-	File actualFile;
-	Scanner myScanner;
-	float ans;
+	File actualFile;//Used to store the file
+	Scanner myScanner;//Opens the file
+	float ans;//Variable used to return the calculations/odds of user's answer
 	int times;//Used to count the amount of times the readFile method has been contacted
 	
 	//Constuctor
@@ -107,6 +107,7 @@ public class Cough extends Aches
 			}
 			
 			//Probability
+			//if the answer that the user entered is equal to yes
 			if(answer.contains("yes"))
 			{
 				j = Cyes + Cyesno;
@@ -132,7 +133,7 @@ public class Cough extends Aches
 					times = 0;
 				}
 			}
-			
+			//if the answer that the user entered is equal to no
 			if(answer.contains("no"))
 			{
 				j = Cnoyes + Cno;
